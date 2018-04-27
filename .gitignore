@@ -7,3 +7,5 @@ packages
 .vs
 Litium.AddOns.GoogleMapFieldType.csproj.user
 yarn-error.log
+yarn.lock
+*.nupkg
