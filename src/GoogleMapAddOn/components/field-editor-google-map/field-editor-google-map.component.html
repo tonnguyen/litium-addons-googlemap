@@ -1,0 +1,30 @@
+<field-editor [field]="field">
+    <p preview>
+        <agm-map [latitude]="getCurrentLocation(previewModeKey, viewLanguage)?.lat" 
+                [longitude]="getCurrentLocation(previewModeKey, viewLanguage)?.lng"
+                [zoom]="getZoom[viewLanguage] || 10"
+                [streetViewControl]="false"
+                (centerChange)="onCenterChange($event, previewModeKey, viewLanguage)"
+                (zoomChange)="onZoomChange($event, previewModeKey, viewLanguage)"
+        >
+            <agm-marker *ngIf="getValue(viewLanguage)" [latitude]="getValue(viewLanguage)?.lat" 
+                        [longitude]="getValue(viewLanguage)?.lng"></agm-marker>
+        </agm-map>
+    </p>
+    <div edit>
+        <agm-map *ngIf="field.editable === true" [streetViewControl]="false"
+                [latitude]="getCurrentLocation(editModeKey, editLanguage)?.lat" 
+                [longitude]="getCurrentLocation(editModeKey, editLanguage)?.lng"
+                [zoom]="getZoom[editLanguage] || 10"
+                (centerChange)="onCenterChange($event, editModeKey, editLanguage)"
+                (zoomChange)="onZoomChange($event, editModeKey, editLanguage)"
+                (mapRightClick)="onLocationChoose($event.coords)"
+        >
+            <agm-marker *ngIf="getValue(editLanguage)" [latitude]="getValue(editLanguage)?.lat" 
+                        [longitude]="getValue(editLanguage)?.lng"></agm-marker>
+
+            <agm-search-box [placeholder]="'Search and select a location or right click on the map'" [position]="searchPosition" 
+                (placesChange)="onLocationChoose({ lat: $event[0].geometry.location.lat(), lng: $event[0].geometry.location.lng() })"></agm-search-box>
+        </agm-map>
+    </div>
+</field-editor>
