@@ -3596,9 +3596,9 @@ listify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/listify/-/listify-1.0.0.tgz#03ca7ba2d150d4267773f74e57558d1053d2bee3"
 
-litium-ui@../web/obj/litium-ui.tgz:
-  version "5.6.0-patch-1802081236"
-  resolved "../web/obj/litium-ui.tgz#65c9493e58a7c3b3fe25d5b962478f83b0775d37"
+litium-ui@./obj/litium-ui.tgz:
+  version "6.0.0"
+  resolved "./obj/litium-ui.tgz#a90db657a49662a669f8569461a785ad7b740c9a"
   dependencies:
     "@angular-redux/store" "7.0.2"
     "@angular/animations" "5.2.0"
