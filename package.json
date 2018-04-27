@@ -18,7 +18,9 @@
     "lint": "tslint src/**/*.ts"
   },
   "devDependencies": {
-    "litium-ui": "./obj/litium-ui.tgz"
+    "litium-ui": "./obj/litium-ui.tgz",
+    "tslint": "^5.9.1",
+    "webpack": "3.10.0"
   },
   "dependencies": {
     "tonnguyen-agm-core": "1.0.1"
