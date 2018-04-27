@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/tonnguyen/litium-addons-googlemap/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/tonnguyen/litium-addons-googlemap/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>First version release.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>Litium Commerce Google Maps AddOn Field FieldType</tags>
+  </metadata>
+  <files>
+    <file src="README.md" target="" />
+  </files>
+</package>

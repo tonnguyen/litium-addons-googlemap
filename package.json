@@ -1,0 +1,26 @@
+{
+  "name": "litium-addons-googlemap",
+  "version": "6.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/tonnguyen",
+  "author": {
+    "email": "tonng86@gmail.com",
+    "name": "Ton Nguyen",
+    "url": "https://www.tonnguyen.com"
+  },
+  "repository": {
+    "url": "https://github.com/tonnguyen"
+  },
+  "scripts": {
+    "build": "webpack --config ./config/webpack/webpack.js --color --progress --profile",
+    "build:w": "webpack --watch --config ./config/webpack/webpack.js --color --progress --profile",
+    "pack": "nuget pack -properties Configuration=Release",
+    "lint": "tslint src/**/*.ts"
+  },
+  "devDependencies": {
+    "litium-ui": "./obj/litium-ui.tgz"
+  },
+  "dependencies": {
+    "tonnguyen-agm-core": "1.0.1"
+  }
+}
