@@ -2,12 +2,12 @@
     <p preview>
         <agm-map [latitude]="getCurrentLocation(previewModeKey, viewLanguage)?.lat" 
                 [longitude]="getCurrentLocation(previewModeKey, viewLanguage)?.lng"
-                [zoom]="getZoom[viewLanguage] || 10"
+                [zoom]="getZoom(previewModeKey, viewLanguage) || 10"
                 [streetViewControl]="false"
                 (centerChange)="onCenterChange($event, previewModeKey, viewLanguage)"
                 (zoomChange)="onZoomChange($event, previewModeKey, viewLanguage)"
         >
-            <agm-marker *ngIf="getValue(viewLanguage)" [latitude]="getValue(viewLanguage)?.lat" 
+            <agm-marker [latitude]="getValue(viewLanguage)?.lat" 
                         [longitude]="getValue(viewLanguage)?.lng"></agm-marker>
         </agm-map>
     </p>
@@ -15,12 +15,12 @@
         <agm-map *ngIf="field.editable === true" [streetViewControl]="false"
                 [latitude]="getCurrentLocation(editModeKey, editLanguage)?.lat" 
                 [longitude]="getCurrentLocation(editModeKey, editLanguage)?.lng"
-                [zoom]="getZoom[editLanguage] || 10"
+                [zoom]="getZoom(editModeKey, editLanguage) || 10"
                 (centerChange)="onCenterChange($event, editModeKey, editLanguage)"
                 (zoomChange)="onZoomChange($event, editModeKey, editLanguage)"
                 (mapRightClick)="onLocationChoose($event.coords)"
         >
-            <agm-marker *ngIf="getValue(editLanguage)" [latitude]="getValue(editLanguage)?.lat" 
+            <agm-marker [latitude]="getValue(editLanguage)?.lat" 
                         [longitude]="getValue(editLanguage)?.lng"></agm-marker>
 
             <agm-search-box [placeholder]="'Search and select a location or right click on the map'" [position]="searchPosition" 

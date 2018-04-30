@@ -14,8 +14,10 @@ Install the NuGet package to your project by executing the following command in 
 ## How to use
 Just like other field type:
 1. Create a field with type GoogleMap ![Create Google Maps field](images/Field.PNG)
-2. Add it to the template ![Add Google Maps field to the template](images/Template.PNG)
-3. Then the Google Map component will be added to the entity page. ![Edit Google Maps field](images/Edit.PNG)
+2. Edit the field to enter the Google Map Api key. Here is how to get the key: https://developers.google.com/maps/documentation/javascript/get-api-key
+![Enter Google Map Api key](images/MapKey.PNG)
+3. Add it to the template ![Add Google Maps field to the template](images/Template.PNG)
+4. Then the Google Map component will be added to the entity page. ![Edit Google Maps field](images/Edit.PNG)
 
 ## Build from source
 Even though the AddOn is ready to use by just installing the package, you can still build it from source.
@@ -31,7 +33,3 @@ Even though the AddOn is ready to use by just installing the package, you can st
 4. Build the solution
 
 The assembly file named Litium.AddOns.GoogleMapFieldType.dll should be built.
-
-
-## Litmitation
-- Not support in PIM yet

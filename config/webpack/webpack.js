@@ -93,6 +93,12 @@ module.exports = {
             /angular(\\|\/)core(\\|\/)@angular/,
             path.resolve(__dirname, '../src')
         ),
+        new CopyWebpackPlugin([
+            { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map/legacy/fieldEditorGoogleMap.js'), to: helpers.root('dist') },
+            { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map-setting/legacy/fieldEditorGoogleMapSetting.js'), to: helpers.root('dist') },
+            { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map/legacy/fieldEditorGoogleMap.html'), to: helpers.root('dist') },
+            { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map-setting/legacy/fieldEditorGoogleMapSetting.html'), to: helpers.root('dist') },
+        ]),
         // new BundleAnalyzerPlugin(),
     ],
     resolve: {

@@ -9,6 +9,6 @@ namespace Litium.AddOns.GoogleMapFieldType.FieldFramework
     internal class GoogleMapFieldTypeConverter : IJsonFieldTypeConverter
     {
         public object ConvertFromJsonValue(JsonFieldTypeConverterArgs args, JToken item) => item?.ToObject<Location>();
-        public JToken ConvertToJsonValue(JsonFieldTypeConverterArgs args, object item) => new JValue(item);
+        public JToken ConvertToJsonValue(JsonFieldTypeConverterArgs args, object item) => JToken.FromObject(item);
     }
 }
