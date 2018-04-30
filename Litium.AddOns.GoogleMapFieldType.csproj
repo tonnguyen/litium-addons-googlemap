@@ -140,6 +140,7 @@
   <ItemGroup>
     <Compile Include="ExtensionsModuleRouterInitTask.cs" />
     <Compile Include="FieldFramework\FieldTypeConstants.cs" />
+    <Compile Include="FieldFramework\GoogleMapAdministrationExtension.cs" />
     <Compile Include="FieldFramework\GoogleMapEditFieldTypeConverter.cs" />
     <Compile Include="FieldFramework\GoogleMapFieldTypeConverter.cs" />
     <Compile Include="FieldFramework\GoogleMapFieldTypeMetadata.cs" />
@@ -153,6 +154,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dist\fieldEditorGoogleMap.html" />
+    <EmbeddedResource Include="dist\fieldEditorGoogleMap.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dist\fieldEditorGoogleMapSetting.html" />
+    <EmbeddedResource Include="dist\fieldEditorGoogleMapSetting.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Litium.Studio.UI.Resource.6.0.0\build\Litium.Studio.UI.Resource.targets" Condition="Exists('packages\Litium.Studio.UI.Resource.6.0.0\build\Litium.Studio.UI.Resource.targets')" />

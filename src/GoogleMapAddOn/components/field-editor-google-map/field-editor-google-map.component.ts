@@ -1,6 +1,3 @@
-import { LAZY_MAPS_API_CONFIG, LazyMapsAPILoader, MapsAPILoader, LatLngLiteral } from 'tonnguyen-agm-core';
-import { BROWSER_GLOBALS_PROVIDERS } from 'tonnguyen-agm-core/utils/browser-globals';
-import { ControlPosition } from 'tonnguyen-agm-core/services/google-maps-types';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -8,6 +5,22 @@ import {
     OnInit
 } from '@angular/core';
 import { BaseFieldEditor } from 'litium-ui';
+import {
+    DelayedConfigMapsApiLoader,
+    LatLngLiteral,
+    LAZY_MAPS_API_CONFIG_FUNCTION,
+    LazyMapsAPILoaderConfigLiteral,
+    MapsAPILoader
+} from 'tonnguyen-agm-core';
+import { ControlPosition } from 'tonnguyen-agm-core/services/google-maps-types';
+import { BROWSER_GLOBALS_PROVIDERS } from 'tonnguyen-agm-core/utils/browser-globals';
+
+export function mapConfigFactory(editor: FieldEditorGoogleMap) {
+    return (): LazyMapsAPILoaderConfigLiteral => ({
+        apiKey: editor.field.options ? editor.field.options.mapApiKey : '',
+        libraries: ['places']
+    });
+}
 
 @Component({
     selector: 'field-editor-google-map',
@@ -21,8 +34,8 @@ import { BaseFieldEditor } from 'litium-ui';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         ...BROWSER_GLOBALS_PROVIDERS,
-        {provide: MapsAPILoader, useClass: LazyMapsAPILoader},
-        {provide: LAZY_MAPS_API_CONFIG, useValue: { apiKey: 'AIzaSyBJDVg4_D41CYzcJgsfPAvZ3sSNjKi_Jtw', libraries: ['places'] }},
+        {provide: MapsAPILoader, useClass: DelayedConfigMapsApiLoader},
+        {provide: LAZY_MAPS_API_CONFIG_FUNCTION, useFactory: mapConfigFactory, deps: [FieldEditorGoogleMap]},
     ],
 })
 export class FieldEditorGoogleMap extends BaseFieldEditor implements OnInit {

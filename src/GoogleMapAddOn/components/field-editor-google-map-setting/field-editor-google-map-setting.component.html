@@ -1,0 +1,7 @@
+<field-editor [field]="field">
+    <p preview>{{ getMapKey(viewLanguage)}}</p>
+    <input edit type="text" #control 
+        [ngModel]="getMapKey(editLanguage)" 
+        (ngModelChange)="mapKeyChange($event, editLanguage)"
+    />
+</field-editor>

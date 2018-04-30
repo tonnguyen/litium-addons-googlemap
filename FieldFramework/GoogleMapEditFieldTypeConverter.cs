@@ -21,14 +21,14 @@ namespace Litium.AddOns.GoogleMapFieldType.FieldFramework
         public JToken ConvertToEditValue(EditFieldTypeConverterArgs args, object item) =>
             _jsonConverter.ConvertToJsonValue(new JsonFieldTypeConverterArgs(args.FieldDefinition, args.CultureInfo), item);
 
-        public object CreateOptionsModel() => null;
+        public object CreateOptionsModel() => new GoogleMapFieldTypeMetadata.Option();
 
-        public string EditControllerName { get; } = null;
-        public string EditControllerTemplate { get; } = null;
-        public string SettingsControllerName { get; } = null;
-        public string SettingsControllerTemplate { get; } = null;
+        public string EditControllerName { get; } = "fieldEditorGoogleMap";
+        public string EditControllerTemplate { get; } = "~/Litium/Client/Scripts/dist/fieldEditorGoogleMap.html";
+        public string SettingsControllerName { get; } = "fieldEditorGoogleMapSetting";
+        public string SettingsControllerTemplate { get; } = "~/Litium/Client/Scripts/dist/fieldEditorGoogleMapSetting.html";
 
         public string EditComponentName => "GoogleMapAddOn#FieldEditorGoogleMap";
-        public string SettingsComponentName => string.Empty;
+        public string SettingsComponentName => "GoogleMapAddOn#FieldEditorGoogleMapSetting";
     }
 }

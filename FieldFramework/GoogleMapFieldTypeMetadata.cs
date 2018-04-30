@@ -29,5 +29,10 @@ namespace Litium.AddOns.GoogleMapFieldType.FieldFramework
             public virtual double Lat { get; set; }
             public virtual double Lng { get; set; }
         }
+
+        public class Option
+        {
+            public virtual string MapApiKey { get; set; }
+        }
     }
 }
