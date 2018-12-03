@@ -1,19 +1,18 @@
 const webpack = require('webpack');
 const helpers = require('../helpers');
-
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var distPath = helpers.root('dist');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
-var path = require('path');
+const distPath = helpers.root('dist');
+const HappyPack = require('happypack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const moduleName = 'GoogleMapAddOn';
 
 module.exports = {
+    // keep the mode development, otherwise component factory's name will be minified
+    // and dynamic component creator will not be able to find it.
+    mode: 'development',
     context: __dirname,
     target: 'web',
     entry: {
@@ -33,12 +32,12 @@ module.exports = {
             },
             {
                 test: /\.(ts)$/,
-                use: ['babel-loader', 'ts-loader', 'angular2-template-loader', 'angular2-router-loader'],
+                use: ['happypack/loader?id=ts'],
                 exclude: /node_modules/
             },
             {
                 test: /\.(js)$/,
-                use: ['babel-loader'],
+                use: ['happypack/loader?id=js'],
                 exclude: /node_modules/
             },
             {
@@ -54,45 +53,52 @@ module.exports = {
                 use: ['raw-loader']
             },
             {
-                test: /\.json$/,
-                use: 'json-loader'
-            },
-            {
                 test: /\.(woff2?|ttf|eot|svg)$/,
                 use: 'url?limit=10000'
             }
         ]
     },
+    optimization: {
+        namedModules: true,
+        namedChunks: true,
+        // set runtimeChunk to true to generate the runtime Accelerator file, to move webpackBootstrap
+        // to runtime file, keeping Accelerator.js to clean, to not containing webpackBootstrap.
+        // The dynamic component loading would not work if Accelerator.js contains webpackBootstrap
+        runtimeChunk: true,
+        splitChunks: {
+            // move everything under node_modules to vendor.js, but:
+            // excluding litium-ui
+            // embed tonnguyen-agm-core (external dependency) in GoogleMapAddOn.js
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/](?!(tonnguyen-agm-core)).*[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                },
+                'litium-ui': {
+                    test: /[\\/]litium-ui[\\/]/,
+                    name: "litium-ui",
+                    chunks: "all"
+                }
+            }
+        }
+    },
     output: {
-        filename: '[name].js',
         path: distPath,
-        chunkFilename: '[name].js',
         publicPath: '/Litium/Client/Scripts/dist/'
     },
     plugins: [
-        // new HardSourceWebpackPlugin({ cacheDirectory: helpers.root('node_modules/.cache/hard-source/[confighash]')}),
-        new CleanWebpackPlugin([distPath], { root: helpers.root('.') }),
-        new DefinePlugin({
-            'ENV': JSON.stringify(process.env.ENV),
-            'process.env': {
-                'ENV': JSON.stringify(process.env.ENV),
-                'NODE_ENV': JSON.stringify(process.env.ENV)
-            }
+        new HappyPack({
+            id: 'ts',
+            threads: 4,
+            loaders: ['babel-loader', { path: 'ts-loader', query: { happyPackMode: true } }, 'angular2-template-loader', 'angular2-router-loader']
         }),
-        new CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: ({ resource }) => (
-                resource !== undefined &&
-                resource.indexOf('node_modules') !== -1 &&
-                resource.indexOf('node_modules\\tonnguyen-agm-core') === -1
-            )
+        new HappyPack({
+            id: 'js',
+            threads: 2,
+            loaders: ['babel-loader']
         }),
-        new webpack.NamedModulesPlugin(),
-        new webpack.NamedChunksPlugin(),
-        new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)@angular/,
-            path.resolve(__dirname, '../src')
-        ),
+        new ForkTsCheckerWebpackPlugin({ tsconfig: helpers.root('tsconfig.json') }),
         new CopyWebpackPlugin([
             { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map/legacy/fieldEditorGoogleMap.js'), to: helpers.root('dist') },
             { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map-setting/legacy/fieldEditorGoogleMapSetting.js'), to: helpers.root('dist') },
@@ -100,6 +106,10 @@ module.exports = {
             { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map-setting/legacy/fieldEditorGoogleMapSetting.html'), to: helpers.root('dist') },
         ]),
         // new BundleAnalyzerPlugin(),
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)esm5/,
+            path.resolve(__dirname, '../src')
+        )
     ],
     resolve: {
         modules: [

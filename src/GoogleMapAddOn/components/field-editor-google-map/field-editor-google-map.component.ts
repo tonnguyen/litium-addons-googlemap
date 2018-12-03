@@ -4,7 +4,7 @@ import {
     Component,
     OnInit
 } from '@angular/core';
-import { BaseFieldEditor } from 'litium-ui';
+import { BaseFieldEditor, Debounce } from 'litium-ui';
 import {
     DelayedConfigMapsApiLoader,
     LatLngLiteral,
@@ -45,7 +45,7 @@ export class FieldEditorGoogleMap extends BaseFieldEditor implements OnInit {
     editModeKey = 'edit';
     searchPosition = ControlPosition.TOP_LEFT;
 
-    constructor(private changeDetection: ChangeDetectorRef) {
+    constructor(changeDetection: ChangeDetectorRef) {
         super(changeDetection);
     }
 
@@ -58,12 +58,16 @@ export class FieldEditorGoogleMap extends BaseFieldEditor implements OnInit {
     getCurrentLocation = (mode: string, language: string): any => this._currentLocation[this._getKey(mode, language)];
     getZoom = (mode: string, language: string): any => this._zoom[this._getKey(mode, language)];
 
+    @Debounce(50)
     onCenterChange(event: LatLngLiteral, mode: string, language: string) {
         this._currentLocation[this._getKey(mode, language)] = event;
+        this._changeDetection.markForCheck();
     }
 
+    @Debounce(50)
     onZoomChange(zoom: number, mode: string, language: string) {
         this._zoom[this._getKey(mode, language)] = zoom;
+        this._changeDetection.markForCheck();
     }
 
     onLocationChoose(location) {

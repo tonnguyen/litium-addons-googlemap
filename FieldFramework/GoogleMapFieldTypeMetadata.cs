@@ -1,4 +1,6 @@
-﻿using Litium.FieldFramework;
+﻿using Litium.ComponentModel;
+using Litium.FieldFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +9,8 @@ namespace Litium.AddOns.GoogleMapFieldType.FieldFramework
     public class GoogleMapFieldTypeMetadata : FieldTypeMetadataBase
     {
         public override string Id => FieldTypeConstants.GoogleMap;
+
+        public override Type JsonType => typeof(Location);
 
         public override IFieldType CreateInstance(IFieldDefinition fieldDefinition)
         {
@@ -24,15 +28,34 @@ namespace Litium.AddOns.GoogleMapFieldType.FieldFramework
             protected override ICollection<FieldData> PersistFieldDataInternal(object item) => new[] { new FieldData { ObjectValue = (Location)item } };
         }
 
-        public class Location
+        public class Location : ObjectBase
         {
-            public virtual double Lat { get; set; }
-            public virtual double Lng { get; set; }
+            private double _lat;
+            public virtual double Lat
+            {
+                get => _lat;
+                set => _lat = this.ThrowIfReadOnly(value);
+            }
+
+            private double _lng;
+            public virtual double Lng
+            {
+                get => _lng;
+                set => _lng = this.ThrowIfReadOnly(value);
+            }
         }
 
-        public class Option
+        public class Option : ObjectBase, IFieldTypeOptionChangeDetector
         {
-            public virtual string MapApiKey { get; set; }
+            private string _mapApiKey;
+            public virtual string MapApiKey
+            {
+                get => _mapApiKey;
+                set => _mapApiKey = this.ThrowIfReadOnly(value);
+            }
+
+            bool IFieldTypeOptionChangeDetector.ShouldEvictCache(object originalItem)
+            => MapApiKey != (originalItem as Option)?.MapApiKey;
         }
     }
 }
