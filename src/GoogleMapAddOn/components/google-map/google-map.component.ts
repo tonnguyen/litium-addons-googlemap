@@ -1,4 +1,3 @@
-import { BaseFieldEditor } from 'litium-ui';
 import {
     DelayedConfigMapsApiLoader,
     LAZY_MAPS_API_CONFIG_FUNCTION,
@@ -9,7 +8,6 @@ import { ControlPosition } from 'tonnguyen-agm-core/services/google-maps-types';
 import { BROWSER_GLOBALS_PROVIDERS } from 'tonnguyen-agm-core/utils/browser-globals';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
 } from '@angular/core';
 
@@ -47,10 +45,6 @@ export class GoogleMap {
     language: string;
     fieldId: string;
     mode: string;
-
-    constructor(private _changeDetectorRef: ChangeDetectorRef) {
-
-    }
 
     public send(action: string, value: any) {
         const data = {

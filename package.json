@@ -1,6 +1,6 @@
 {
   "name": "litium-addons-googlemap",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "license": "MIT",
   "homepage": "https://github.com/tonnguyen",
   "author": {
@@ -12,16 +12,15 @@
     "url": "https://github.com/tonnguyen"
   },
   "scripts": {
-    "build": "webpack --config ./config/webpack/webpack.js --color --progress --profile",
-    "build:w": "webpack --watch --config ./config/webpack/webpack.js --color --progress --profile",
+    "build": "webpack --config ./config/webpack/webpack.js --color",
+    "build:w": "webpack --watch --config ./config/webpack/webpack.js --color --progress",
     "pack": "nuget pack -properties Configuration=Release",
     "dotnet": "'%programfiles(x86)%/MSBuild/14.0/Bin/msbuild.exe' Litium.AddOns.GoogleMapFieldType.sln",
     "lint": "tslint src/**/*.ts"
   },
   "devDependencies": {
-    "litium-ui": "./obj/litium-ui.tgz"
-  },
-  "dependencies": {
+    "litium-ui": "file:./obj/litium-ui.tgz",
+    "rxjs-compat": "^6.3.3",
     "tonnguyen-agm-core": "1.1.0"
   }
 }

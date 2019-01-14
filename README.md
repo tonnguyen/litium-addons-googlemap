@@ -31,5 +31,4 @@ Even though the AddOn is ready to use by just installing the package, you can st
 2. Execute the following command in Package Manager Console: `Update-Package -ReInstall`
 3. Execute the BuildClientScripts.bat file
 4. Build the solution
-
-The assembly file named Litium.AddOns.GoogleMapFieldType.dll should be built.
+5. Execute `yarn run pack` to build the NuGet package.

@@ -17,7 +17,7 @@ import { BROWSER_GLOBALS_PROVIDERS } from 'tonnguyen-agm-core/utils/browser-glob
 
 export function mapConfigFactory(editor: FieldEditorGoogleMap) {
     return (): LazyMapsAPILoaderConfigLiteral => ({
-        apiKey: editor.field.options ? editor.field.options.mapApiKey : '',
+        apiKey: editor.value['*'] ? editor.value['*'].MapApiKey || editor.value['*'].mapApiKey : '',
         libraries: ['places']
     });
 }
@@ -55,12 +55,28 @@ export class FieldEditorGoogleMap extends BaseFieldEditor implements OnInit {
         this._currentLocation[this._getKey(this.editModeKey, this.editLanguage)] = this.getValue(this.editLanguage);
     }
 
+    getValue(language: string): any {
+        const value = super.getValue(language);
+        return this._normalize(value);
+    }
+
+    private _normalize(value: any): LatLngLiteral {
+        if (!value) {
+            return null;
+        }
+        return {
+            ...value,
+            lat: value.Lat || value.lat,
+            lng: value.Lng || value.lng,
+        };
+    }
+
     getCurrentLocation = (mode: string, language: string): any => this._currentLocation[this._getKey(mode, language)];
     getZoom = (mode: string, language: string): any => this._zoom[this._getKey(mode, language)];
 
     @Debounce(50)
     onCenterChange(event: LatLngLiteral, mode: string, language: string) {
-        this._currentLocation[this._getKey(mode, language)] = event;
+        this._currentLocation[this._getKey(mode, language)] = this._normalize(event);
         this._changeDetection.markForCheck();
     }
 

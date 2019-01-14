@@ -5,7 +5,6 @@ const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const moduleName = 'GoogleMapAddOn';
 
@@ -64,14 +63,17 @@ module.exports = {
         // set runtimeChunk to true to generate the runtime Accelerator file, to move webpackBootstrap
         // to runtime file, keeping Accelerator.js to clean, to not containing webpackBootstrap.
         // The dynamic component loading would not work if Accelerator.js contains webpackBootstrap
-        runtimeChunk: true,
+        runtimeChunk: {
+            // name it as manifest then we will re-use the Litium Web's runtime
+            name: 'manifest'
+        },
         splitChunks: {
             // move everything under node_modules to vendor.js, but:
             // excluding litium-ui
             // embed tonnguyen-agm-core (external dependency) in GoogleMapAddOn.js
             cacheGroups: {
                 commons: {
-                    test: /[\\/]node_modules[\\/](?!(tonnguyen-agm-core)).*[\\/]/,
+                    test: /[\\/]node_modules[\\/](?!(tonnguyen-agm-core|rxjs-compat|rxjs)).*[\\/]/,
                     name: "vendor",
                     chunks: "all"
                 },
@@ -99,17 +101,7 @@ module.exports = {
             loaders: ['babel-loader']
         }),
         new ForkTsCheckerWebpackPlugin({ tsconfig: helpers.root('tsconfig.json') }),
-        new CopyWebpackPlugin([
-            { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map/legacy/fieldEditorGoogleMap.js'), to: helpers.root('dist') },
-            { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map-setting/legacy/fieldEditorGoogleMapSetting.js'), to: helpers.root('dist') },
-            { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map/legacy/fieldEditorGoogleMap.html'), to: helpers.root('dist') },
-            { from: helpers.root('src/' + moduleName + '/components/field-editor-google-map-setting/legacy/fieldEditorGoogleMapSetting.html'), to: helpers.root('dist') },
-        ]),
-        // new BundleAnalyzerPlugin(),
-        new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)esm5/,
-            path.resolve(__dirname, '../src')
-        )
+        // new BundleAnalyzerPlugin()
     ],
     resolve: {
         modules: [

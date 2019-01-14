@@ -26,7 +26,11 @@ namespace Litium.AddOns.GoogleMapFieldType.FieldFramework
         public virtual JToken ConvertToEditValue(EditFieldTypeConverterArgs args, object item)
         {
             var fieldTypeInstance = _fieldTypeMetadata.CreateInstance(args.FieldDefinition);
-            var value = fieldTypeInstance.ConvertToJsonValue(item);
+            var location = new WithApiKeyLocation(item as GoogleMapFieldTypeMetadata.Location)
+            {
+                MapApiKey = (args.FieldDefinition.Option as GoogleMapFieldTypeMetadata.Option).MapApiKey
+            };
+            var value = fieldTypeInstance.ConvertToJsonValue(location);
             if (value == null)
             {
                 return JValue.CreateNull();
@@ -34,10 +38,25 @@ namespace Litium.AddOns.GoogleMapFieldType.FieldFramework
             return JToken.FromObject(value);
         }
 
-        public string EditControllerName { get; } = "fieldEditorGoogleMap";
-        public string EditControllerTemplate { get; } = "~/Litium/Client/Scripts/dist/fieldEditorGoogleMap.html";
-        public string SettingsControllerName { get; } = "fieldEditorGoogleMapSetting";
-        public string SettingsControllerTemplate { get; } = "~/Litium/Client/Scripts/dist/fieldEditorGoogleMapSetting.html";
+        class WithApiKeyLocation : GoogleMapFieldTypeMetadata.Location
+{
+            public WithApiKeyLocation(GoogleMapFieldTypeMetadata.Location location)
+            {
+                if (location == null)
+                {
+                    return;
+                }
+                Lat = location.Lat;
+                Lng = location.Lng;
+            }
+
+            public string MapApiKey { get; set; }
+        }
+
+        public string EditControllerName { get; } = null;
+        public string EditControllerTemplate { get; } = null;
+        public string SettingsControllerName { get; } = null;
+        public string SettingsControllerTemplate { get; } = null;
 
         public string EditComponentName => "GoogleMapAddOn#FieldEditorGoogleMap";
         public string SettingsComponentName => "GoogleMapAddOn#FieldEditorGoogleMapSetting";
