@@ -1,17 +1,17 @@
 const webpack = require('webpack');
 const helpers = require('../helpers');
 const distPath = helpers.root('dist');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path = require('path');
+const commonVendorsTest = require('litium-ui/common-vendors-module.js');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const moduleName = 'GoogleMapAddOn';
 
-module.exports = {
-    // keep the mode development, otherwise component factory's name will be minified
-    // and dynamic component creator will not be able to find it.
-    mode: 'development',
+module.exports = (env, argv) => ({
+    mode: argv.mode,
     context: __dirname,
     target: 'web',
     entry: {
@@ -60,6 +60,15 @@ module.exports = {
     optimization: {
         namedModules: true,
         namedChunks: true,
+        minimize: argv.mode == 'production',
+        minimizer: [
+            new UglifyJSPlugin({
+                sourceMap: true,
+                uglifyOptions: {
+                    mangle: false, // to keep component name
+                }
+            })
+        ],
         // set runtimeChunk to true to generate the runtime Accelerator file, to move webpackBootstrap
         // to runtime file, keeping Accelerator.js to clean, to not containing webpackBootstrap.
         // The dynamic component loading would not work if Accelerator.js contains webpackBootstrap
@@ -68,12 +77,9 @@ module.exports = {
             name: 'manifest'
         },
         splitChunks: {
-            // move everything under node_modules to vendor.js, but:
-            // excluding litium-ui
-            // embed tonnguyen-agm-core (external dependency) in GoogleMapAddOn.js
             cacheGroups: {
                 commons: {
-                    test: /[\\/]node_modules[\\/](?!(tonnguyen-agm-core|rxjs-compat|rxjs)).*[\\/]/,
+                    test: commonVendorsTest,
                     name: "vendor",
                     chunks: "all"
                 },
@@ -110,4 +116,4 @@ module.exports = {
         ],
         extensions: ['.ts', '.js', '.json']
     }
-};
+});

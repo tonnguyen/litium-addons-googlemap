@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Litium.Web.Administration.Abstractions.7.1.0\build\Litium.Web.Administration.Abstractions.props" Condition="Exists('packages\Litium.Web.Administration.Abstractions.7.1.0\build\Litium.Web.Administration.Abstractions.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -43,37 +44,37 @@
       <HintPath>packages\Litium.Studio.ThirdParty.DotNetZip.1.0.0\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Abstractions, Version=7.1.0.0, Culture=neutral, PublicKeyToken=093d4a638630e7c5, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Abstractions.7.1.0-patch-1901111127\lib\netstandard2.0\Litium.Abstractions.dll</HintPath>
+      <HintPath>packages\Litium.Abstractions.7.1.0\lib\netstandard2.0\Litium.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Foundation, Version=7.1.0.0, Culture=neutral, PublicKeyToken=e47737e618208e4b, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Foundation.7.1.0-patch-1901111127\lib\net472\Litium.Foundation.dll</HintPath>
+      <HintPath>packages\Litium.Foundation.7.1.0\lib\net472\Litium.Foundation.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Foundation.GUI, Version=7.1.0.0, Culture=neutral, PublicKeyToken=a40357825b856809, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Foundation.GUI.7.1.0-patch-1901111127\lib\net472\Litium.Foundation.GUI.dll</HintPath>
+      <HintPath>packages\Litium.Foundation.GUI.7.1.0\lib\net472\Litium.Foundation.GUI.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Framework.Search, Version=5.1.0.0, Culture=neutral, PublicKeyToken=8232cca59cf208c4, processorArchitecture=MSIL">
       <HintPath>packages\Litium.Framework.Search.5.1.0\lib\net40\Litium.Framework.Search.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Owin, Version=7.1.0.0, Culture=neutral, PublicKeyToken=093d4a638630e7c5, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Owin.7.1.0-patch-1901111127\lib\net472\Litium.Owin.dll</HintPath>
+      <HintPath>packages\Litium.Owin.7.1.0\lib\net472\Litium.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Studio, Version=7.1.0.0, Culture=neutral, PublicKeyToken=093d4a638630e7c5, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Studio.7.1.0-patch-1901111127\lib\net472\Litium.Studio.dll</HintPath>
+      <HintPath>packages\Litium.Studio.7.1.0\lib\net472\Litium.Studio.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Studio.Packages, Version=7.1.0.0, Culture=neutral, PublicKeyToken=093d4a638630e7c5, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Studio.Packages.7.1.0-patch-1901111127\lib\net472\Litium.Studio.Packages.dll</HintPath>
+      <HintPath>packages\Litium.Studio.Packages.7.1.0\lib\net472\Litium.Studio.Packages.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Studio.UI.Resource, Version=7.1.0.0, Culture=neutral, PublicKeyToken=093d4a638630e7c5, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Studio.UI.Resource.7.1.0-patch-1901111127\lib\net472\Litium.Studio.UI.Resource.dll</HintPath>
+      <HintPath>packages\Litium.Studio.UI.Resource.7.1.0\lib\net472\Litium.Studio.UI.Resource.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Utilities, Version=7.1.0.0, Culture=neutral, PublicKeyToken=640ada3058909375, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Utilities.7.1.0-patch-1901111127\lib\net472\Litium.Utilities.dll</HintPath>
+      <HintPath>packages\Litium.Utilities.7.1.0\lib\net472\Litium.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Web.Abstractions, Version=7.1.0.0, Culture=neutral, PublicKeyToken=093d4a638630e7c5, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Web.Abstractions.7.1.0-patch-1901111127\lib\net472\Litium.Web.Abstractions.dll</HintPath>
+      <HintPath>packages\Litium.Web.Abstractions.7.1.0\lib\net472\Litium.Web.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Litium.Web.Administration.Abstractions, Version=7.1.0.0, Culture=neutral, PublicKeyToken=093d4a638630e7c5, processorArchitecture=MSIL">
-      <HintPath>packages\Litium.Web.Administration.Abstractions.7.1.0-patch-1901111127\lib\net472\Litium.Web.Administration.Abstractions.dll</HintPath>
+      <HintPath>packages\Litium.Web.Administration.Abstractions.7.1.0\lib\net472\Litium.Web.Administration.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Caching.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
@@ -174,11 +175,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="packages\Litium.Studio.UI.Resource.7.1.0-patch-1901111127\build\Litium.Studio.UI.Resource.targets" Condition="Exists('packages\Litium.Studio.UI.Resource.7.1.0-patch-1901111127\build\Litium.Studio.UI.Resource.targets')" />
+  <Import Project="packages\Litium.Studio.UI.Resource.7.1.0\build\Litium.Studio.UI.Resource.targets" Condition="Exists('packages\Litium.Studio.UI.Resource.7.1.0\build\Litium.Studio.UI.Resource.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Litium.Studio.UI.Resource.7.1.0-patch-1901111127\build\Litium.Studio.UI.Resource.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Litium.Studio.UI.Resource.7.1.0-patch-1901111127\build\Litium.Studio.UI.Resource.targets'))" />
+    <Error Condition="!Exists('packages\Litium.Studio.UI.Resource.7.1.0\build\Litium.Studio.UI.Resource.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Litium.Studio.UI.Resource.7.1.0\build\Litium.Studio.UI.Resource.targets'))" />
+    <Error Condition="!Exists('packages\Litium.Web.Administration.Abstractions.7.1.0\build\Litium.Web.Administration.Abstractions.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Litium.Web.Administration.Abstractions.7.1.0\build\Litium.Web.Administration.Abstractions.props'))" />
+    <Error Condition="!Exists('packages\Litium.Web.Administration.Abstractions.7.1.0\build\Litium.Web.Administration.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Litium.Web.Administration.Abstractions.7.1.0\build\Litium.Web.Administration.Abstractions.targets'))" />
   </Target>
+  <Import Project="packages\Litium.Web.Administration.Abstractions.7.1.0\build\Litium.Web.Administration.Abstractions.targets" Condition="Exists('packages\Litium.Web.Administration.Abstractions.7.1.0\build\Litium.Web.Administration.Abstractions.targets')" />
 </Project>
