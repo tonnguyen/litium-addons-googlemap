@@ -2,9 +2,10 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    OnInit
+    OnInit,
+    ViewEncapsulation
 } from '@angular/core';
-import { BaseFieldEditor } from 'litium-ui';
+import { BaseFieldEditor, Debounce } from 'litium-ui';
 import {
     DelayedConfigMapsApiLoader,
     LatLngLiteral,
@@ -17,7 +18,7 @@ import { BROWSER_GLOBALS_PROVIDERS } from 'tonnguyen-agm-core/utils/browser-glob
 
 export function mapConfigFactory(editor: FieldEditorGoogleMap) {
     return (): LazyMapsAPILoaderConfigLiteral => ({
-        apiKey: editor.field.options ? editor.field.options.mapApiKey : '',
+        apiKey: editor.value['*'] ? editor.value['*'].MapApiKey || editor.value['*'].mapApiKey : '',
         libraries: ['places']
     });
 }
@@ -30,7 +31,11 @@ export function mapConfigFactory(editor: FieldEditorGoogleMap) {
             width: 100%;
             height: 300px;
         }
+        button.gm-control-active {
+            min-width: auto;
+        }
     `],
+    encapsulation: ViewEncapsulation.None, // to provide styles without scope.
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         ...BROWSER_GLOBALS_PROVIDERS,
@@ -45,7 +50,7 @@ export class FieldEditorGoogleMap extends BaseFieldEditor implements OnInit {
     editModeKey = 'edit';
     searchPosition = ControlPosition.TOP_LEFT;
 
-    constructor(private changeDetection: ChangeDetectorRef) {
+    constructor(changeDetection: ChangeDetectorRef) {
         super(changeDetection);
     }
 
@@ -55,15 +60,35 @@ export class FieldEditorGoogleMap extends BaseFieldEditor implements OnInit {
         this._currentLocation[this._getKey(this.editModeKey, this.editLanguage)] = this.getValue(this.editLanguage);
     }
 
+    getValue(language: string): any {
+        const value = super.getValue(language);
+        return this._normalize(value);
+    }
+
+    private _normalize(value: any): LatLngLiteral {
+        if (!value) {
+            return null;
+        }
+        return {
+            ...value,
+            lat: value.Lat || value.lat,
+            lng: value.Lng || value.lng,
+        };
+    }
+
     getCurrentLocation = (mode: string, language: string): any => this._currentLocation[this._getKey(mode, language)];
     getZoom = (mode: string, language: string): any => this._zoom[this._getKey(mode, language)];
 
+    @Debounce(50)
     onCenterChange(event: LatLngLiteral, mode: string, language: string) {
-        this._currentLocation[this._getKey(mode, language)] = event;
+        this._currentLocation[this._getKey(mode, language)] = this._normalize(event);
+        this._changeDetection.markForCheck();
     }
 
+    @Debounce(50)
     onZoomChange(zoom: number, mode: string, language: string) {
         this._zoom[this._getKey(mode, language)] = zoom;
+        this._changeDetection.markForCheck();
     }
 
     onLocationChoose(location) {

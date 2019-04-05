@@ -1,6 +1,6 @@
 {
   "name": "litium-addons-googlemap",
-  "version": "6.0.0",
+  "version": "7.1.0",
   "license": "MIT",
   "homepage": "https://github.com/tonnguyen",
   "author": {
@@ -12,17 +12,18 @@
     "url": "https://github.com/tonnguyen"
   },
   "scripts": {
-    "build": "webpack --config ./config/webpack/webpack.js --color --progress --profile",
-    "build:w": "webpack --watch --config ./config/webpack/webpack.js --color --progress --profile",
+    "prod": "webpack --mode production --config ./config/webpack/webpack.js --color",
+    "prod:w": "webpack --mode production --watch --config ./config/webpack/webpack.js --color",
+    "build:w": "webpack --mode development --watch --config ./config/webpack/webpack.js --color --progress --profile",
+    "build": "webpack --mode development --config ./config/webpack/webpack.js --color --progress --profile",
     "pack": "nuget pack -properties Configuration=Release",
+    "dotnet": "'%programfiles(x86)%/MSBuild/14.0/Bin/msbuild.exe' Litium.AddOns.GoogleMapFieldType.sln",
     "lint": "tslint src/**/*.ts"
   },
   "devDependencies": {
-    "litium-ui": "./obj/litium-ui.tgz",
-    "tslint": "^5.9.1",
-    "webpack": "3.10.0"
-  },
-  "dependencies": {
-    "tonnguyen-agm-core": "1.1.0"
+    "litium-ui": "https://packages.litium.com/Npm/litium-ui?7.1.0",
+    "rxjs-compat": "^6.3.3",
+    "tonnguyen-agm-core": "1.1.0",
+    "uglifyjs-webpack-plugin": "2.1.2"
   }
 }

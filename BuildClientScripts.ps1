@@ -17,10 +17,10 @@ if ($yarnCommand -eq $null) {
 Push-Location $PSScriptRoot
 
 Write-Host "Installing packages..."
-&$yarnCommand install
+&$yarnCommand install --check-files
 Write-Host "Lint checking..."
 &$yarnCommand run lint
 Write-Host "building packages..."
-&$yarnCommand run build
+&$yarnCommand run prod
 
 Pop-Location

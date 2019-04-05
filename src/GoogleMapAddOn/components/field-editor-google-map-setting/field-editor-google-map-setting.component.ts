@@ -3,6 +3,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    OnInit,
 } from '@angular/core';
 
 @Component({
@@ -10,11 +11,14 @@ import {
     templateUrl: './field-editor-google-map-setting.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FieldEditorGoogleMapSetting extends BaseFieldEditor {
-    label = 'Google Map Api';
-
+export class FieldEditorGoogleMapSetting extends BaseFieldEditor implements OnInit {
     constructor(protected _changeDetectorRef: ChangeDetectorRef) {
         super(_changeDetectorRef);
+    }
+
+    ngOnInit() {
+        super.ngOnInit();
+        this.label = 'Google Map Api';
     }
 
     public getMapKey(language: string): any {

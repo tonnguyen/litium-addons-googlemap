@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/tonnguyen/litium-addons-googlemap/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>First version release.</releaseNotes>
+    <releaseNotes>Upgrade to Litium 7.1.0.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>Litium Commerce Google Maps AddOn Field FieldType</tags>
   </metadata>
