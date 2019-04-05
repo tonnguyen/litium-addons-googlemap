@@ -2,7 +2,8 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    OnInit
+    OnInit,
+    ViewEncapsulation
 } from '@angular/core';
 import { BaseFieldEditor, Debounce } from 'litium-ui';
 import {
@@ -30,7 +31,11 @@ export function mapConfigFactory(editor: FieldEditorGoogleMap) {
             width: 100%;
             height: 300px;
         }
+        button.gm-control-active {
+            min-width: auto;
+        }
     `],
+    encapsulation: ViewEncapsulation.None, // to provide styles without scope.
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         ...BROWSER_GLOBALS_PROVIDERS,
