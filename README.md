@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/tonnguyen/litium-addons-googlemap/tree/master.svg?style=shield)](https://circleci.com/gh/tonnguyen/litium-addons-googlemap/tree/master)
 
+# The project has been archived and moved to its new home: https://github.com/tonnguyen/litium-fieldtype-bag
+
 # Litium Google Map Add-on
 
 ![Google Map field single languages](images/SingleLang.PNG)
